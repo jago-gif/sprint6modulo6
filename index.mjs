@@ -31,20 +31,23 @@ app.get("/", (req, res) => {
 });
 
 app.post("/agregar-gasto", (req, res) => {
-  console.log(req.body);
+  const data = JSON.parse(Object.keys(req.body)[0]);
+
+  console.log("asdjkasdlkjasldkjaslkdjlsakd")
+  console.log(data);
   let roomer;
   for (let i = 0; i < roommates.length; i++) {
-    if (roommates[i].id == req.body.room) {
+    if (roommates[i].id == data.room) {
       roomer = roommates[i].nombre;
     }
   
   }
 let gastoModel = {
   id: idGastos,
-  idroomer: req.body.room,
+  idroomer: data.room,
   roomer: roomer,
-  descripcion: req.body.descripcion,
-  monto: req.body.monto,
+  descripcion: data.descripcion,
+  monto: data.monto,
 };
   gastos.push(gastoModel);
   idGastos++;

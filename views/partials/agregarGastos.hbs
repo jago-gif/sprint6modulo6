@@ -4,24 +4,24 @@
     <hr class="bg-light w-25 mx-auto" />
 
     <div class="d-flex flex-column align-items-center">
-      <form action="/agregar-gasto" method="post">
+      <form id="formGastos">
         <h6 class="text-center">Roommate</h6>
-        <select class="form-select from-group" aria-label="Default select example" name="room">
+        <select class="form-select form-group" aria-label="Default select example" id="room" name="room">
           {{#each roommates}}
           <option value="{{id}}">{{nombre}}</option>
           {{/each}}
         </select>
         <h6>Descripción</h6>
-        <textarea class="from-group border" id="descripcion" name="descripcion"></textarea>
+        <textarea class="form-group border" id="descripcion" name="descripcion"></textarea>
 
         <h6>Monto:</h6>
-        <input class="from-group border" id="monto" type="number" name="monto" />
+        <input class="form-group border" id="monto" type="number" name="monto" />
     </div>
+    </form>
     <div class="d-block my-1">
-      <button class="btn btn-primary" type="submit">
+      <button class="btn btn-primary" type="button" id="agregarGasto">
         Agregar
       </button>
     </div>
-    </form>
   </div>
 </div>
