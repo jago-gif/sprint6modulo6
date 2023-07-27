@@ -1,31 +1,27 @@
-<div class="row w-100 m-auto">
-      <div class="col-4">
-        <div class="border rounded p-2 m-auto p-4">
-          <h4>Agregar Gasto</h4>
-          <hr class="bg-light w-25 mx-auto" />
+<div class="col-4">
+  <div class="border rounded p-2 m-auto p-4">
+    <h4>Agregar Gasto</h4>
+    <hr class="bg-light w-25 mx-auto" />
 
-          <div class="d-flex flex-column align-items-center">
-            <h6>Roommate</h6>
-            <select
-              class="form-control w-50 mb-2"
-              id="roommatesSelect"></select>
-            <h6>Descripción</h6>
-            <textarea class="form-control w-50 mb-2" id="descripcion">
-              Articulos de limpieza</textarea>
+    <div class="d-flex flex-column align-items-center">
+      <form action="/agregar-gasto" method="post">
+        <h6 class="text-center">Roommate</h6>
+        <select class="form-select from-group" aria-label="Default select example" name="room">
+          {{#each roommates}}
+          <option value="{{id}}">{{nombre}}</option>
+          {{/each}}
+        </select>
+        <h6>Descripción</h6>
+        <textarea class="from-group border" id="descripcion" name="descripcion"></textarea>
 
-            <h6>Monto:</h6>
-            <input
-              class="form-control w-50 mb-2"
-              id="monto"
-              type="number"
-              value="15000" />
-          </div>
-          <div class="d-block my-1">
-            <button class="btn text-white m-auto" onclick="agregarGasto()">
-              Agregar
-            </button>
-          </div>
-        </div>
-      </div>
-
+        <h6>Monto:</h6>
+        <input class="from-group border" id="monto" type="number" name="monto" />
     </div>
+    <div class="d-block my-1">
+      <button class="btn btn-primary" type="submit">
+        Agregar
+      </button>
+    </div>
+    </form>
+  </div>
+</div>

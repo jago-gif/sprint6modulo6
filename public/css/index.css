@@ -1,19 +1,20 @@
 body {
-    text-align: center;
-    color: white;
-    text-shadow: 0px 0px 3px black;
-    background: #23036a;
+    text-align: center !important;
+    color: white !important;
+    background-color: #23036a !important;
 }
 
+.contenido{
+    margin-top: 10% !important;
+}
 .modal-body {
-    color: black;
-    text-shadow: none;
+    color: black !important;
 }
 
-button {
+ .btn-primary{
     background: #6200ee !important;
 }
 
 i {
-    cursor: pointer;
+    cursor: pointer !important; 
 }

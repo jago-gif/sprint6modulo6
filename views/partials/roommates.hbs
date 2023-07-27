@@ -2,7 +2,7 @@
 
 <div class="col-4">
         <h5>Roommates</h5>
-        <button class="btn text-white mb-2" onclick="nuevoRoommate()">
+        <button type="button" class="btn btn-primary mb-5" id="agregarRoomates">
           Agregar roommate
         </button>
         <table class="table">
@@ -12,48 +12,16 @@
             <th>Recibe</th>
           </thead>
           <tbody class="text-white" id="roommates"></tbody>
+            {{#each roommates}}
+            <tr>
+              <td style="border:1px solid">{{nombre}}</td>
+              <td style="border:1px solid">{{debe}}</td>
+              <td style="border:1px solid">${{recibe}}</td>
+            </tr>
+            {{/each}}
+
         </table>
   </div>
 
 
 
-<div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="border rounded p-2 m-auto p-4">
-              <h4>Editar Gasto</h4>
-              <hr class="bg-light w-25 mx-auto" />
-
-              <div class="d-flex flex-column align-items-center">
-                <h6>Roommate</h6>
-                <select
-                  class="form-control w-50 mb-2"
-                  id="roommatesSelectModal"></select>
-                <h6>Descripción</h6>
-                <textarea class="form-control w-50 mb-2" id="descripcionModal">
-                  Articulos de limpieza</textarea>
-
-                <h6>Monto:</h6>
-                <input
-                  class="form-control w-50 mb-2"
-                  id="montoModal"
-                  type="number"
-                  value="20000" />
-              </div>
-              <div class="d-block my-1">
-                <button class="btn text-white m-auto" onclick="updateGasto()">
-                  Agregar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
