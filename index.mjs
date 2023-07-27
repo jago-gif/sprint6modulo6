@@ -93,34 +93,52 @@ function generarUser(){
 })
 }
 
-function calcularGastos(){
- let cantidadAdividir= roommates.length;
-  roommates.forEach((user)=>{
-    console.log("jklhaskdjhaskdjhaskjdhkjashdkjashdkajhsdkjas")
-   let userRecibe = 0
-   gastos.forEach((gasto) =>{
-  if (user.id === gasto.idroomer) {
-    let recibe = parseInt(gasto.monto);
-    console.log(recibe);
-    userRecibe += recibe / cantidadAdividir;
-    user.recibe = userRecibe;
-    roommates.forEach((u)=>{
-      if(u.id!=user.id){
-        if (parseInt(u.recibe) > 0) {
-          u.recibe = parseInt(u.recibe) - userRecibe;
-        }else{
-        u.debe = userRecibe;
-        }
-        
+function calcularGastos() {
+  let cantidadUsuarios = roommates.length;
+
+  // Inicializar un objeto para almacenar el total a recibir por cada usuario
+  let totalRecibePorUsuario = {};
+
+  // Calcular el total a recibir por cada usuario dividido entre la cantidad de usuarios
+  gastos.forEach((gasto) => {
+    let montoPorUsuario = gasto.monto / cantidadUsuarios;
+    if (!totalRecibePorUsuario[gasto.idroomer]) {
+      totalRecibePorUsuario[gasto.idroomer] = montoPorUsuario;
+    } else {
+      totalRecibePorUsuario[gasto.idroomer] += montoPorUsuario;
+    }
+  });
+
+  // Reiniciar los saldos de "recibe" y "debe" para todos los usuarios
+  roommates.forEach((user) => {
+    user.recibe = totalRecibePorUsuario[user.id] || 0;
+    user.debe = 0;
+  });
+
+  // Calcular los saldos de "debe" para cada usuario
+  roommates.forEach((user) => {
+    roommates.forEach((otherUser) => {
+      if (user.id !== otherUser.id) {
+        user.debe += totalRecibePorUsuario[otherUser.id] || 0;
       }
-    })
-  }
-  })
-  
-  })
+    });
+  });
 
- 
-
- 
-  console.log(roommates)
+  // Ajustar los saldos de "recibe" y "debe" para cada usuario según las reglas
+  roommates.forEach((user) => {
+    if (user.recibe >= user.debe) {
+      user.recibe -= user.debe;
+      user.debe = 0;
+    } else {
+      user.debe -= user.recibe;
+      user.recibe = 0;
+    }
+  });
 }
+
+
+
+
+
+
+
