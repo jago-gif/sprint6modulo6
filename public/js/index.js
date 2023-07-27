@@ -41,3 +41,12 @@ fetch("/agregar-gasto", enviarPostGasto)
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const editarBotones = document.querySelectorAll(".editarGasto");
+  editarBotones.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      const gastoId = boton.dataset.id;
+      console.log(gastoId);
+    });
+  });
+});

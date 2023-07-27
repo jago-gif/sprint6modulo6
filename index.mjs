@@ -26,15 +26,12 @@ let gastos = [];
 
 
 app.get("/", (req, res) => {
-  console.log("hola");
   res.render("index", { roommates, gastos });
 });
 
 app.post("/agregar-gasto", (req, res) => {
   const data = JSON.parse(Object.keys(req.body)[0]);
 
-  console.log("asdjkasdlkjasldkjaslkdjlsakd")
-  console.log(data);
   let roomer;
   for (let i = 0; i < roommates.length; i++) {
     if (roommates[i].id == data.room) {
@@ -65,7 +62,6 @@ app.post("/agregarroomates", async (req, res) => {
     recibe: 0
   };
   roommates.push(roomModel);
-  console.log(roommates)
   res.status(200).send("gerenado")
 });
 

@@ -17,8 +17,8 @@
               <td style="border:1px solid">{{descripcion}}</td>
               <td style="border:1px solid">${{monto}}</td>
               <td>
-                <button type="button" id="editar" class="btn btn-warning">editar</button>
-                <button type="button" id="borrar" class="btn btn-danger">borrar</button>
+                <button type="button" class="btn btn-warning editarGasto" data-id="{{this.id}}">editar</button>
+                <button type="button" class="btn btn-warning borrarGasto" data-id="{{this.id}}">Borrar</button>
               </td>
             </tr>
             {{/each}}
