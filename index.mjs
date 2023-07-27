@@ -111,7 +111,7 @@ function calcularGastos() {
 
   // Reiniciar los saldos de "recibe" y "debe" para todos los usuarios
   roommates.forEach((user) => {
-    user.recibe = totalRecibePorUsuario[user.id] || 0;
+    user.recibe = (totalRecibePorUsuario[user.id] * (cantidadUsuarios-1) )|| 0;
     user.debe = 0;
   });
 
@@ -124,7 +124,6 @@ function calcularGastos() {
     });
   });
 
-  // Ajustar los saldos de "recibe" y "debe" para cada usuario según las reglas
   roommates.forEach((user) => {
     if (user.recibe >= user.debe) {
       user.recibe -= user.debe;
