@@ -17,8 +17,8 @@
               <td style="border:1px solid">{{descripcion}}</td>
               <td style="border:1px solid">${{monto}}</td>
               <td>
-                <button type="button" class="btn btn-warning">editar</button>
-                <button type="button" class="btn btn-danger">borrar</button>
+                <button type="button" id="editar" class="btn btn-warning">editar</button>
+                <button type="button" id="borrar" class="btn btn-danger">borrar</button>
               </td>
             </tr>
             {{/each}}
@@ -43,10 +43,10 @@
                         Articulos de limpieza</textarea>
       
                   <h6>Monto:</h6>
-                  <input class="form-control w-50 mb-2" id="montoModal" type="number" value="20000" />
+                  <input class="form-control w-50 mb-2" id="montoModal" type="number"  />
                 </div>
                 <div class="d-block my-1">
-                  <button class="btn btn-primary" onclick="updateGasto()">
+                  <button class="btn btn-primary" id="editar">
                     Agregar
                   </button>
                 </div>
