@@ -18,6 +18,7 @@ const app = express();
 app.set("view engine", "hbs");
 app.use(express.static("public"));
 hbs.registerPartials(__dirname + "/views/partials");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 let idGastos = 1;
 let roommates = [];
@@ -62,8 +63,39 @@ app.post("/agregarroomates", async (req, res) => {
     recibe: 0
   };
   roommates.push(roomModel);
+  calcularGastos();
   res.status(200).send("gerenado")
 });
+
+app.post("/get-gasto",  (req, res) => {
+  console.log(req.body);
+  const id = req.body.gastoId;
+  console.log(id)
+  encontrarGasto(res, id);
+});
+
+app.delete("/borrar-gasto", (req, res) => {
+  const id = req.body.gastoId;
+  gastos = gastos.filter((gasto) => {
+    return gasto.id != id;
+  })
+  res.status(200).send("borrado");
+})
+
+
+app.put("/editar-gasto", (req, res) => {
+  const data = JSON.parse(Object.keys(req.body)[0]);
+  console.log(data);
+  gastos.forEach((gasto) => {
+    if (gasto.id == parseInt(data.idGasto)) {
+      console.log(gasto);
+      gasto.descripcion = data.descripcion;
+      gasto.monto = data.monto;
+    }
+  });
+  calcularGastos();
+  res.status(200).send("editado");
+})
 
 app.listen(3000, () => {
   console.log("Server on port 3000");
@@ -91,7 +123,14 @@ function generarUser(){
       })
 })
 }
-
+function encontrarGasto(res,id){
+gastos.forEach((gasto) => {
+  if (gasto.id == parseInt(id)) {
+    res.status(200).send(gasto);
+  } 
+});
+    res.status(404).send("no encontrado");
+}
 function calcularGastos() {
   let cantidadUsuarios = roommates.length;
 
