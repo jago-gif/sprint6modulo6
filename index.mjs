@@ -51,7 +51,7 @@ let gastoModel = {
   monto: data.monto,
 };
   gastos.push(gastoModel);
- 
+  idGastos++;
   calcularGastos()
 
  res.render("index", {roommates ,gastos});
@@ -77,24 +77,14 @@ app.post("/get-gasto",  (req, res) => {
   encontrarGasto(res, id);
 });
 
-app.delete("/borrar-gasto", async (req, res) => {
+app.delete("/borrar-gasto", (req, res) => {
   const id = req.body.gastoId;
-  gastos = await borrarGasto(id);
-  calcularGastos();
+  gastos = gastos.filter((gasto) => {
+    return gasto.id != id;
+  })
+  calcularGastos()
   res.status(200).send("borrado");
 })
-
-async function borrarGasto(id){
-  
-  gastos.forEach((gasto) => {
-    if (gasto.id == id) {
-      gastos.splice(gastos.indexOf(gasto), 1);
-    }
-  })
-  return gastos;
-  
-
-}
 
 
 app.put("/editar-gasto", (req, res) => {
