@@ -2,21 +2,21 @@
 
 <div class="col-4">
         <h5>Roommates</h5>
-        <button type="button" class="btn btn-primary mb-5" id="agregarRoomates">
+        <button type="button" class="btn btn-primary mb-4" id="agregarRoomates">
           Agregar roommate
         </button>
-        <table class="table">
-          <thead class="text-white">
+        <table class="table table-striped table-hover">
+          <thead>
             <th>Nombre</th>
             <th>Debe</th>
             <th>Recibe</th>
           </thead>
-          <tbody class="text-white" id="roommates"></tbody>
+          <tbody id="roommates"></tbody>
             {{#each roommates}}
             <tr>
-              <td style="border:1px solid">{{nombre}}</td>
-              <td style="border:1px solid">{{debe}}</td>
-              <td style="border:1px solid">${{recibe}}</td>
+              <td>{{nombre}}</td>
+              <td>{{debe}}</td>
+              <td>${{recibe}}</td>
             </tr>
             {{/each}}
 

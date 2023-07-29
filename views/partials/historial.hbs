@@ -1,9 +1,9 @@
 <div class="col-4">
-        <div>
+        <div >
           <h4>Historial</h4>
-          <hr class="bg-light w-25 mx-auto" />
+          <hr class="bg-light w-25 mx-auto mt-5"  />
 
-          <table class="table">
+          <table class="table table-striped table-hover mt-3">
             <thead class="text-white">
               <th>Nombre</th>
               <th>Comentario</th>
@@ -13,12 +13,12 @@
             <tbody class="text-white" id="gastosHistorial"></tbody>
             {{#each gastos}}
             <tr>
-              <td style="border:1px solid">{{roomer}}</td>
-              <td style="border:1px solid">{{descripcion}}</td>
-              <td style="border:1px solid">${{monto}}</td>
+              <td >{{roomer}}</td>
+              <td >{{descripcion}}</td>
+              <td >${{monto}}</td>
               <td>
-                <button type="button" class="btn btn-warning editarGasto" data-id="{{this.id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"> editar</button>
-                <button type="button" class="btn btn-danger borrarGasto" data-id="{{this.id}}">Borrar</button>
+                <button type="button" class="btn btn-warning editarGasto" data-id="{{this.id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger borrarGasto" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
               </td>
             </tr>
             {{/each}}
