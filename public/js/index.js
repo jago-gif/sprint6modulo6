@@ -58,15 +58,12 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(envia),
       };
-      console.log(gastoId);
-      console.log(getGasto)
       fetch("/get-gasto", getGasto)
         .then((response) => {
           if (response.status === 200) {
             return response.json();
           }
         }).then((data) => {
-          console.log(data);
           document.getElementById("roomModal").value = data.roomer;
           document.getElementById("descripcionModal").value = data.descripcion;
           document.getElementById("montoModal").value = data.monto;

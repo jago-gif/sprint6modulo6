@@ -71,9 +71,7 @@ app.post("/agregarroomates", async (req, res) => {
 });
 
 app.post("/get-gasto",  (req, res) => {
-  console.log(req.body);
   const id = req.body.gastoId;
-  console.log(id)
   encontrarGasto(res, id);
 });
 
@@ -89,10 +87,8 @@ app.delete("/borrar-gasto", (req, res) => {
 
 app.put("/editar-gasto", (req, res) => {
   const data = JSON.parse(Object.keys(req.body)[0]);
-  console.log(data);
   gastos.forEach((gasto) => {
-    if (gasto.id == parseInt(data.idGasto)) {
-      console.log(gasto);
+    if (gasto.id == data.idGasto) {
       gasto.descripcion = data.descripcion;
       gasto.monto = data.monto;
     }
@@ -129,7 +125,7 @@ function generarUser(){
 }
 function encontrarGasto(res,id){
 gastos.forEach((gasto) => {
-  if (gasto.id == parseInt(id)) {
+  if (gasto.id == id) {
     res.status(200).send(gasto);
   } 
 });
@@ -189,7 +185,6 @@ function leerGastos() {
       console.log("Error al leer el archivo gastos.json:", err);
     } else {
       gastos = JSON.parse(data);
-      console.log("Archivo gastos.json cargado exitosamente.");
     }
   });
 
@@ -201,9 +196,6 @@ function leerRommate(){
       console.log("Error al leer el archivo roommates.json:", err);
     } else {
       roommates = JSON.parse(data);
-      console.log(data);
-      console.log(roommates);
-      console.log("Archivo roommates.json cargado exitosamente.");
     }
   });
   return roommates
