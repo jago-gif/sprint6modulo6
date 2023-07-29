@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import https from "https";
 
+
 //recuperar ruta raiz
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -24,9 +25,11 @@ let idGastos = 1;
 let roommates = [];
 let gastos = [];
 
-
+roommates = leerRommate();
+gastos = leerGastos();
 
 app.get("/", (req, res) => {
+ 
   res.render("index", { roommates, gastos });
 });
 
@@ -41,14 +44,14 @@ app.post("/agregar-gasto", (req, res) => {
   
   }
 let gastoModel = {
-  id: idGastos,
+  id: uuidv4(),
   idroomer: data.room,
   roomer: roomer,
   descripcion: data.descripcion,
   monto: data.monto,
 };
   gastos.push(gastoModel);
-  idGastos++;
+ 
   calcularGastos()
 
  res.render("index", {roommates ,gastos});
@@ -74,13 +77,24 @@ app.post("/get-gasto",  (req, res) => {
   encontrarGasto(res, id);
 });
 
-app.delete("/borrar-gasto", (req, res) => {
+app.delete("/borrar-gasto", async (req, res) => {
   const id = req.body.gastoId;
-  gastos = gastos.filter((gasto) => {
-    return gasto.id != id;
-  })
+  gastos = await borrarGasto(id);
+  calcularGastos();
   res.status(200).send("borrado");
 })
+
+async function borrarGasto(id){
+  
+  gastos.forEach((gasto) => {
+    if (gasto.id == id) {
+      gastos.splice(gastos.indexOf(gasto), 1);
+    }
+  })
+  return gastos;
+  
+
+}
 
 
 app.put("/editar-gasto", (req, res) => {
@@ -131,7 +145,10 @@ gastos.forEach((gasto) => {
 });
     res.status(404).send("no encontrado");
 }
+
+
 function calcularGastos() {
+
   let cantidadUsuarios = roommates.length;
 
   // Inicializar un objeto para almacenar el total a recibir por cada usuario
@@ -171,7 +188,61 @@ function calcularGastos() {
       user.recibe = 0;
     }
   });
+  crearArchivos();
 }
+
+function leerGastos() {
+  
+
+   fs.readFile("./data/gastos.json", "utf8", (err, data) => {
+    if (err) {
+      console.log("Error al leer el archivo gastos.json:", err);
+    } else {
+      gastos = JSON.parse(data);
+      console.log("Archivo gastos.json cargado exitosamente.");
+    }
+  });
+
+  return gastos
+}
+function leerRommate(){
+  fs.readFile("./data/roommates.json", "utf8", (err, data) => {
+    if (err) {
+      console.log("Error al leer el archivo roommates.json:", err);
+    } else {
+      roommates = JSON.parse(data);
+      console.log(data);
+      console.log(roommates);
+      console.log("Archivo roommates.json cargado exitosamente.");
+    }
+  });
+  return roommates
+}
+
+
+function crearArchivos(){
+  fs.writeFile("./data/roommates.json", JSON.stringify(roommates), (err) => {
+    if (err) {
+      console.log("Error al escribir el archivo roommates.json:", err);
+    } else {
+      console.log("Archivo roommates.json guardado exitosamente.");
+    }
+  })
+
+  fs.writeFile("./data/gastos.json", JSON.stringify(gastos), (err) => {
+    if (err) {
+      console.log("Error al escribir el archivo gastos.json:", err);
+    } else {
+      console.log("Archivo gastos.json guardado exitosamente.");
+    }
+  })
+
+}
+
+
+
+
+
 
 
 
